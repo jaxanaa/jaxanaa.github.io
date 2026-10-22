@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Play free multiplayer blackjack with your friends.">
+  <title>Blackjack - Filip's Website</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="blackjack-page">
+  <header class="site-header">
+    <a class="site-brand" href="index.html">Filip's Website</a>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About me</a>
+      <a href="blackjack.html" aria-current="page">Blackjack</a>
+    </nav>
+  </header>
+
+  <main class="blackjack-main">
+    <section class="blackjack-intro">
+      <p class="eyebrow">A table for your friends</p>
+      <h1>Blackjack</h1>
+      <p>Make a table, share its code, and play a hand together. Just for fun — no real money.</p>
+    </section>
+
+    <section id="connection-banner" class="connection-banner" role="status" hidden></section>
+
+    <section id="join-panel" class="join-panel" aria-labelledby="join-heading">
+      <div>
+        <p class="eyebrow">Take a seat</p>
+        <h2 id="join-heading">Join the table</h2>
+        <p class="muted">Pick a name to start a new table or join a friend.</p>
+      </div>
+      <form id="join-form" class="join-form">
+        <label>
+          Your name
+          <input id="player-name" name="playerName" maxlength="18" autocomplete="nickname" placeholder="e.g. Filip" required>
+        </label>
+        <label>
+          Table code <span class="optional-label">optional to create a table</span>
+          <input id="room-code" name="roomCode" maxlength="6" autocomplete="off" placeholder="e.g. A4K9QZ" pattern="[A-Za-z0-9]{6}" title="Enter the six-character table code">
+        </label>
+        <button class="button button-primary" type="submit">Join or create table</button>
+      </form>
+      <p id="join-error" class="form-error" role="alert" hidden></p>
+    </section>
+
+    <section id="table-panel" class="table-panel" aria-labelledby="table-heading" hidden>
+      <div class="table-toolbar">
+        <div>
+          <p class="eyebrow">Free-play table</p>
+          <h2 id="table-heading">Table <span id="table-code"></span></h2>
+        </div>
+        <button id="copy-code" class="button button-secondary" type="button">Copy invite link</button>
+      </div>
+
+      <div class="felt">
+        <div class="dealer-area">
+          <h3>Dealer</h3>
+          <div id="dealer-cards" class="cards" aria-label="Dealer's cards"></div>
+          <p id="dealer-score" class="hand-score"></p>
+        </div>
+        <div class="table-divider"><span>BLACKJACK</span></div>
+        <div id="player-seats" class="player-seats" aria-live="polite"></div>
+      </div>
+
+      <p id="game-message" class="game-message" role="status"></p>
+      <div class="table-footer">
+        <p id="table-status" class="muted"></p>
+        <div class="game-actions">
+          <button id="start-round" class="button button-primary" type="button" hidden>Deal next hand</button>
+          <button id="hit" class="button button-primary" type="button" hidden>Hit</button>
+          <button id="stand" class="button button-secondary" type="button" hidden>Stand</button>
+        </div>
+      </div>
+    </section>
+
+    <p class="game-note">Each round uses 10 free-play chips. Aces count as 1 or 11. Dealer stands on soft 17.</p>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="blackjack.js"></script>
+</body>
+</html>

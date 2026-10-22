@@ -12,3 +12,404 @@ h1 {
 a {
   color: blue;
 }
+
+.blackjack-page {
+  margin: 0;
+  min-height: 100vh;
+  color: #f7f5ef;
+  background: #101b19;
+  font-family: Arial, sans-serif;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px max(24px, calc((100vw - 1120px) / 2));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.site-header a {
+  color: #e4e9e1;
+  text-decoration: none;
+}
+
+.site-header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+
+.site-header nav a[aria-current="page"] {
+  color: #f4cf7a;
+}
+
+.site-brand {
+  font-weight: 700;
+}
+
+.blackjack-main {
+  width: min(100% - 32px, 1000px);
+  margin: 0 auto;
+  padding: 52px 0 64px;
+}
+
+.blackjack-intro {
+  max-width: 620px;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+
+.blackjack-intro h1 {
+  margin: 4px 0 12px;
+  color: #f7f5ef;
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+}
+
+.blackjack-intro > p:last-child,
+.muted,
+.game-note {
+  color: #bdc9c2;
+  line-height: 1.6;
+}
+
+.eyebrow {
+  margin: 0;
+  color: #f4cf7a;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.connection-banner,
+.join-panel,
+.table-panel {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  background: #192622;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
+}
+
+.connection-banner {
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  color: #f4cf7a;
+  line-height: 1.5;
+}
+
+.join-panel {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 24px 40px;
+  padding: 32px;
+}
+
+.join-panel h2,
+.table-toolbar h2 {
+  margin: 8px 0;
+  color: #f7f5ef;
+}
+
+.join-panel .muted {
+  margin: 0;
+}
+
+.join-form {
+  display: grid;
+  gap: 16px;
+}
+
+.join-form label {
+  display: grid;
+  gap: 8px;
+  color: #e8eee9;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.join-form input {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid #50615a;
+  border-radius: 8px;
+  padding: 12px 14px;
+  color: #f7f5ef;
+  background: #101b19;
+  font: inherit;
+}
+
+.join-form input:focus {
+  outline: 2px solid #f4cf7a;
+  outline-offset: 2px;
+}
+
+.optional-label {
+  color: #aebbb3;
+  font-size: 0.78rem;
+  font-weight: 400;
+}
+
+.button {
+  border: 0;
+  border-radius: 8px;
+  padding: 12px 18px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.button-primary {
+  color: #192019;
+  background: #f4cf7a;
+}
+
+.button-primary:hover:not(:disabled) {
+  background: #ffdd91;
+}
+
+.button-secondary {
+  border: 1px solid #718179;
+  color: #f7f5ef;
+  background: transparent;
+}
+
+.button-secondary:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.form-error {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #ffaaa1;
+}
+
+.table-panel {
+  overflow: hidden;
+  padding: 24px;
+}
+
+.table-toolbar,
+.table-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.table-toolbar {
+  margin-bottom: 20px;
+}
+
+.table-toolbar h2 {
+  margin-bottom: 0;
+}
+
+.table-toolbar h2 span {
+  color: #f4cf7a;
+  font-family: monospace;
+  letter-spacing: 0.12em;
+}
+
+.felt {
+  overflow: hidden;
+  border: 8px solid #754b2b;
+  border-radius: 48% / 17%;
+  padding: 34px 24px 28px;
+  background: radial-gradient(ellipse at center, #19734c 0%, #105b3c 64%, #0d4a32 100%);
+  box-shadow: inset 0 0 0 2px #b18750, inset 0 0 45px rgba(0, 0, 0, 0.3);
+}
+
+.dealer-area,
+.player-seat {
+  text-align: center;
+}
+
+.dealer-area h3,
+.player-seat h3 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+}
+
+.cards {
+  display: flex;
+  min-height: 68px;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+}
+
+.playing-card {
+  display: inline-grid;
+  width: 46px;
+  height: 64px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid #d9d7d0;
+  border-radius: 6px;
+  color: #20251f;
+  background: #fffdf5;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.red-card {
+  color: #c73535;
+}
+
+.card-back {
+  border-color: #f4cf7a;
+  color: #f4cf7a;
+  background: repeating-linear-gradient(45deg, #253e57, #253e57 5px, #304f6d 5px, #304f6d 10px);
+}
+
+.hand-score,
+.chip-count {
+  min-height: 1.2em;
+  margin: 8px 0;
+  color: #ecf3ed;
+  font-size: 0.88rem;
+}
+
+.table-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 22px 0;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+}
+
+.table-divider::before,
+.table-divider::after {
+  height: 1px;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.2);
+  content: "";
+}
+
+.player-seats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.player-seat {
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  padding: 14px 10px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.player-seat.own-seat {
+  border-color: #f4cf7a;
+}
+
+.player-seat.active-seat {
+  box-shadow: 0 0 0 2px #f4cf7a;
+}
+
+.player-seat .cards {
+  min-height: 60px;
+  gap: 4px;
+}
+
+.player-seat .playing-card {
+  width: 36px;
+  height: 50px;
+  font-size: 0.95rem;
+}
+
+.chip-count {
+  color: #f4cf7a;
+  font-weight: 700;
+}
+
+.game-message {
+  min-height: 1.4em;
+  margin: 18px 0;
+  color: #f4cf7a;
+  text-align: center;
+  font-weight: 700;
+}
+
+.table-footer {
+  align-items: flex-end;
+}
+
+.table-footer .muted {
+  margin: 0;
+}
+
+.game-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.game-note {
+  margin: 20px 0 0;
+  text-align: center;
+  font-size: 0.88rem;
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    padding: 18px 20px;
+  }
+
+  .site-header nav {
+    gap: 16px;
+  }
+
+  .blackjack-main {
+    padding-top: 36px;
+  }
+
+  .join-panel {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 22px;
+  }
+
+  .table-panel {
+    padding: 16px;
+  }
+
+  .table-toolbar,
+  .table-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .felt {
+    border-width: 5px;
+    border-radius: 42% / 12%;
+    padding: 32px 12px 20px;
+  }
+
+  .player-seats {
+    grid-template-columns: 1fr;
+  }
+
+  .game-actions {
+    width: 100%;
+  }
+
+  .game-actions .button {
+    flex: 1;
+  }
+}
