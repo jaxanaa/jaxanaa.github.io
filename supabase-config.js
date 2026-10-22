@@ -1,2 +1,2 @@
 window.BLACKJACK_SUPABASE_URL = "https://ackvslyecfssqilihaun.supabase.co";
-window.BLACKJACK_SUPABASE_ANON_KEY = "sb_publishable_k5n4B205tJscJLfgwxGnyA_OtGJ7Alw";
+window.BLACKJACK_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFja3ZzbHllY2Zzc3FpbGloYXVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI2NjU0MTgsImV4cCI6MjEwODI0MTQxOH0.VaZDtC1QqcXEtnsLO-FXQwcsYcd4OL2hc_pCJagbr0I";
