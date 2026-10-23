@@ -52,7 +52,10 @@
           <p class="eyebrow">Free-play table</p>
           <h2 id="table-heading">Table <span id="table-code"></span></h2>
         </div>
-        <button id="copy-code" class="button button-secondary" type="button">Copy invite link</button>
+        <div class="table-toolbar-actions">
+          <button id="music-toggle" class="button button-secondary" type="button" aria-pressed="false">Play chill jazz</button>
+          <button id="copy-code" class="button button-secondary" type="button">Copy invite link</button>
+        </div>
       </div>
 
       <div class="felt">
@@ -76,7 +79,7 @@
       </div>
     </section>
 
-    <p class="game-note">Each round uses 10 free-play chips. Aces count as 1 or 11. Dealer stands on soft 17.</p>
+    <p class="game-note">Each round uses 10 free-play chips. Aces count as 1 or 11. Dealer stands on soft 17. Music is optional and starts only when you press play.</p>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>

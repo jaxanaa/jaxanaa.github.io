@@ -207,6 +207,12 @@ a {
   margin-bottom: 20px;
 }
 
+.table-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .table-toolbar h2 {
   margin-bottom: 0;
 }
@@ -393,6 +399,14 @@ a {
   .table-footer {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .table-toolbar-actions {
+    width: 100%;
+  }
+
+  .table-toolbar-actions .button {
+    flex: 1;
   }
 
   .felt {

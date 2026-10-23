@@ -16,6 +16,7 @@
     tablePanel: document.getElementById("table-panel"),
     tableCode: document.getElementById("table-code"),
     copyCode: document.getElementById("copy-code"),
+    musicToggle: document.getElementById("music-toggle"),
     dealerCards: document.getElementById("dealer-cards"),
     dealerScore: document.getElementById("dealer-score"),
     playerSeats: document.getElementById("player-seats"),
@@ -33,6 +34,9 @@
   let playerId = sessionStorage.getItem("blackjack-player-id");
   let channel = null;
   let busy = false;
+  let audioContext = null;
+  let musicTimer = null;
+  let musicStep = 0;
 
   if (!playerId) {
     playerId = crypto.randomUUID();
@@ -52,9 +56,11 @@
 
   elements.joinForm.addEventListener("submit", joinTable);
   elements.copyCode.addEventListener("click", copyInvite);
+  elements.musicToggle.addEventListener("click", toggleMusic);
   elements.startRound.addEventListener("click", () => performAction(startRound));
   elements.hit.addEventListener("click", () => performAction(() => playTurn("hit")));
   elements.stand.addEventListener("click", () => performAction(() => playTurn("stand")));
+  window.addEventListener("pagehide", cleanup);
 
   async function joinTable(event) {
     event.preventDefault();
@@ -161,6 +167,108 @@
         }
       });
     render();
+  }
+
+  async function toggleMusic() {
+    if (audioContext) {
+      stopMusic();
+      return;
+    }
+
+    const AudioContextConstructor = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextConstructor) {
+      showMessage("This browser does not support the optional music.");
+      return;
+    }
+
+    try {
+      audioContext = new AudioContextConstructor();
+      await audioContext.resume();
+      elements.musicToggle.textContent = "Pause jazz";
+      elements.musicToggle.setAttribute("aria-pressed", "true");
+      musicStep = 0;
+      playMusicStep();
+    } catch (error) {
+      stopMusic();
+      showMessage("Couldn't start the music. Check your browser's audio settings.");
+      console.error("Could not start blackjack background music.", error);
+    }
+  }
+
+  function playMusicStep() {
+    if (!audioContext) return;
+
+    const tempo = 76;
+    const beat = 60 / tempo;
+    const chords = [
+      [45, 48, 52, 55],
+      [41, 45, 48, 52],
+      [46, 50, 53, 57],
+      [40, 43, 47, 50]
+    ];
+    const chord = chords[Math.floor(musicStep / 4) % chords.length];
+    const now = audioContext.currentTime + 0.03;
+
+    playTone(midiFrequency(chord[0] - 12), now, beat * 0.8, 0.12, "sine");
+    if (musicStep % 4 === 0) {
+      chord.forEach((note) => playTone(midiFrequency(note), now, beat * 2.7, 0.045, "triangle"));
+    }
+    if (musicStep % 8 === 3 || musicStep % 8 === 6) {
+      const melody = [chord[2] + 12, chord[3] + 12, chord[1] + 12, chord[2] + 12];
+      playTone(midiFrequency(melody[(musicStep + 1) % melody.length]), now, beat * 0.65, 0.025, "sine");
+    }
+
+    musicStep += 1;
+    musicTimer = window.setTimeout(playMusicStep, beat * 1000);
+  }
+
+  function playTone(frequency, start, duration, volume, waveform) {
+    if (!audioContext) return;
+    const oscillator = audioContext.createOscillator();
+    const envelope = audioContext.createGain();
+    oscillator.type = waveform;
+    oscillator.frequency.setValueAtTime(frequency, start);
+    envelope.gain.setValueAtTime(0.0001, start);
+    envelope.gain.linearRampToValueAtTime(volume, start + 0.035);
+    envelope.gain.setTargetAtTime(0.0001, start + duration * 0.55, duration * 0.25);
+    oscillator.connect(envelope);
+    envelope.connect(audioContext.destination);
+    oscillator.onended = () => {
+      oscillator.disconnect();
+      envelope.disconnect();
+    };
+    oscillator.start(start);
+    oscillator.stop(start + duration);
+  }
+
+  function midiFrequency(note) {
+    return 440 * Math.pow(2, (note - 69) / 12);
+  }
+
+  function stopMusic() {
+    if (musicTimer !== null) {
+      window.clearTimeout(musicTimer);
+      musicTimer = null;
+    }
+    if (audioContext) {
+      const context = audioContext;
+      audioContext = null;
+      context.close().catch((error) => {
+        console.error("Could not close the blackjack audio context.", error);
+      });
+    }
+    elements.musicToggle.textContent = "Play chill jazz";
+    elements.musicToggle.setAttribute("aria-pressed", "false");
+  }
+
+  function cleanup() {
+    stopMusic();
+    if (channel) {
+      channel.unsubscribe().catch((error) => {
+        console.error("Could not close the blackjack realtime connection.", error);
+      });
+      channel = null;
+    }
   }
 
   async function copyInvite() {
@@ -300,6 +408,7 @@
     });
     state.phase = "settled";
     state.currentIndex = -1;
+    state.deck = [];
     showMessage("Hand complete. The host can deal the next one.");
   }
 
